@@ -1,0 +1,107 @@
+graph TB
+    subgraph Cloud["☁️ Cloud Providers"]
+        AWS[AWS]
+        Azure[Azure]
+        GCP[GCP]
+    end
+
+    subgraph Connectors["🔌 Cloud Connector Layer"]
+        AC[AWS Connector]
+        AZC[Azure Connector]
+        GC[GCP Connector]
+    end
+
+    subgraph Ingestion["📥 Data Ingestion Layer"]
+        AN[API Normalizer]
+        CP[Cost Parser]
+        CC[Config Collector]
+    end
+
+    subgraph Core["🧠 Core Platform"]
+        RIG[Resource Inventory Graph]
+        PRE[Policy & Rules Engine]
+        CIE[Cost Intelligence Engine]
+        SPE[Security Posture Engine]
+        CME[Compliance Mapping Engine]
+    end
+
+    subgraph Agents["🤖 Agent Orchestration Layer"]
+        AOL[Agent Runner + Scheduler]
+        CA[Cost Optimization Agent]
+        SA[Security Posture Agent]
+        CEA[Compliance Evidence Agent]
+        RA[Remediation Agent]
+        REP[Reporting Agent]
+        COP[CloudOps Copilot]
+        PGA[Policy Governance Agent]
+        CPA[Customer Portfolio Agent]
+    end
+
+    subgraph Governance["🔒 Governance Layer"]
+        AQ[Approval Queue]
+        NR[Notification Router]
+        CWS[Change Window Scheduler]
+        AL[Audit Log - Immutable]
+    end
+
+    subgraph UX["🖥️ User Experience Layer"]
+        WA[Web App - React]
+        API[REST / GraphQL API]
+        SLK[Slack Bot]
+        PDF[Report PDF Export]
+    end
+
+    AWS --> AC
+    Azure --> AZC
+    GCP --> GC
+    AC --> AN
+    AZC --> AN
+    GC --> AN
+    AN --> RIG
+    CP --> RIG
+    CC --> RIG
+    RIG --> PRE
+    PRE --> CIE
+    PRE --> SPE
+    PRE --> CME
+    CIE --> AOL
+    SPE --> AOL
+    CME --> AOL
+    AOL --> CA
+    AOL --> SA
+    AOL --> CEA
+    AOL --> RA
+    AOL --> REP
+    AOL --> COP
+    AOL --> PGA
+    AOL --> CPA
+    CA --> AQ
+    SA --> AQ
+    CEA --> AQ
+    RA --> AQ
+    AQ --> NR
+    AQ --> CWS
+    CWS --> RA
+    RA -->|write - approved only| AC
+    RA -->|write - approved only| AZC
+    RA -->|write - approved only| GC
+    AQ --> AL
+    RA --> AL
+    CA --> AL
+    SA --> AL
+    WA --> API
+    SLK --> API
+    API --> AOL
+    API --> AQ
+    API --> RIG
+    REP --> PDF
+
+    classDef cloud fill:#e8f4f8,stroke:#2196F3
+    classDef agents fill:#f3e5f5,stroke:#9C27B0
+    classDef governance fill:#fff3e0,stroke:#FF9800
+    classDef ux fill:#e8f5e9,stroke:#4CAF50
+
+    class AWS,Azure,GCP cloud
+    class CA,SA,CEA,RA,REP,COP,PGA,CPA agents
+    class AQ,NR,CWS,AL governance
+    class WA,API,SLK,PDF ux

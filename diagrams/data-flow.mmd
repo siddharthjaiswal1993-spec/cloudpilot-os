@@ -1,0 +1,88 @@
+flowchart LR
+    subgraph Sources["Data Sources"]
+        A1[AWS Config API]
+        A2[AWS Cost & Usage Reports]
+        A3[AWS Security Hub]
+        A4[Azure Resource Graph]
+        A5[Azure Cost Management]
+        A6[GCP Asset Inventory]
+        A7[GCP Billing API]
+    end
+
+    subgraph Ingest["Ingestion & Normalization"]
+        B1[Config Collector\n15-min interval]
+        B2[Cost Parser\nHourly]
+        B3[Security Ingestor\n15-min interval]
+    end
+
+    subgraph Store["Core Data Store"]
+        C1[(Resource Inventory\nGraph)]
+        C2[(Time-Series\nCost Store)]
+        C3[(Finding Store)]
+        C4[(Evidence Store)]
+        C5[(Audit Log\nAppend-Only)]
+    end
+
+    subgraph Engines["Intelligence Engines"]
+        D1[Cost Intelligence\nEngine]
+        D2[Security Posture\nEngine]
+        D3[Compliance\nMapping Engine]
+        D4[Policy & Rules\nEngine]
+    end
+
+    subgraph AgentLayer["Agent Outputs"]
+        E1[Recommendations]
+        E2[Findings + Plans]
+        E3[Compliance Evidence]
+        E4[Reports]
+        E5[Workflow Drafts]
+    end
+
+    subgraph UXLayer["User Interface"]
+        F1[Command Center]
+        F2[Cost Dashboard]
+        F3[Security Dashboard]
+        F4[Compliance Dashboard]
+        F5[Approval Queue]
+        F6[Reports]
+    end
+
+    A1 --> B1
+    A4 --> B1
+    A6 --> B1
+    A2 --> B2
+    A5 --> B2
+    A7 --> B2
+    A3 --> B3
+
+    B1 --> C1
+    B2 --> C2
+    B3 --> C3
+
+    C1 --> D1
+    C1 --> D2
+    C1 --> D3
+    C1 --> D4
+    C2 --> D1
+    C3 --> D2
+    D4 --> C3
+    D4 --> C4
+
+    D1 --> E1
+    D2 --> E2
+    D3 --> E3
+    D1 --> E4
+    D2 --> E4
+    D3 --> E4
+    D2 --> E5
+
+    E1 --> F2
+    E2 --> F3
+    E3 --> F4
+    E4 --> F6
+    E5 --> F5
+
+    E1 --> C5
+    E2 --> C5
+    E3 --> C4
+    E5 --> C5

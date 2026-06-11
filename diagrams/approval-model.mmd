@@ -1,0 +1,58 @@
+stateDiagram-v2
+    [*] --> Draft: Agent creates workflow
+
+    Draft --> PendingApproval: Submitted to queue
+    Draft --> Cancelled: Requester cancels
+
+    PendingApproval --> UnderReview: Approver opens
+    PendingApproval --> Escalated: SLA timeout (24h)
+    Escalated --> UnderReview: Escalation approver opens
+
+    UnderReview --> Approved: Single approver approves\n(Low / Medium risk)
+    UnderReview --> AwaitingSecondApproval: First approver approves\n(High / Critical risk)
+    UnderReview --> Rejected: Approver rejects
+    UnderReview --> NeedsInfo: Approver requests info
+    UnderReview --> Modified: Approver edits steps
+
+    AwaitingSecondApproval --> Approved: Second approver approves
+    AwaitingSecondApproval --> Rejected: Second approver rejects
+
+    NeedsInfo --> PendingApproval: Agent responds with info
+    Modified --> PendingApproval: Resubmitted after edit
+
+    Approved --> Scheduled: Change window assigned
+    Approved --> Executing: Immediate execution\n(Low risk, no change window)
+
+    Scheduled --> Executing: Change window opens
+
+    Executing --> Verifying: All steps complete
+    Executing --> RollingBack: Step failure detected
+
+    Verifying --> Completed: Verification passes
+    Verifying --> RollingBack: Verification fails\nor side effects detected
+
+    RollingBack --> RolledBack: Rollback succeeds
+    RollingBack --> ManualIntervention: Rollback fails
+
+    Completed --> [*]: Audit log written
+    Rejected --> [*]: Rejection reason logged
+    Cancelled --> [*]: Cancellation logged
+    RolledBack --> [*]: Incident created
+    ManualIntervention --> [*]: Critical alert sent
+
+    note right of Approved
+        Audit entry:
+        - Approver identity
+        - Timestamp
+        - Decision notes
+        - Risk tier acknowledged
+    end note
+
+    note right of Completed
+        Audit entry:
+        - Before state
+        - Steps executed
+        - After state
+        - Verification result
+        - Savings / risk delta
+    end note

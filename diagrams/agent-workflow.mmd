@@ -1,0 +1,44 @@
+sequenceDiagram
+    participant S as Scheduler
+    participant A as Agent Runner
+    participant CA as Cost Agent
+    participant DB as Platform Data
+    participant AQ as Approval Queue
+    participant NR as Notification Router
+    participant H as Human Approver
+    participant RA as Remediation Agent
+    participant CLD as Cloud API
+    participant AL as Audit Log
+
+    S->>A: Trigger scheduled run (nightly 01:00)
+    A->>CA: Initialize Cost Optimization Agent
+    CA->>DB: Fetch billing data (30-day window)
+    CA->>DB: Fetch utilization metrics (all compute)
+    CA->>DB: Fetch resource inventory + tags
+    DB-->>CA: Data returned
+
+    Note over CA: Agent reasons over data:<br/>- Detect anomalies<br/>- Calculate rightsizing<br/>- Score by confidence × savings
+
+    CA->>DB: Store recommendations (Level 1)
+    CA->>NR: Send recommendation summary to FinOps Lead
+
+    Note over H: FinOps Lead reviews recommendations
+
+    H->>AQ: Approve rightsizing for i-0abc123 (t3.xlarge → t3.large)
+    AQ->>AL: Log approval event (user, timestamp, action)
+
+    AQ->>RA: Initialize Remediation Agent with approved action
+    RA->>DB: Fetch current resource state (pre-snapshot)
+    RA->>DB: Generate rollback plan
+    RA->>CLD: Execute: modify_instance_type(i-0abc123, t3.large)
+    CLD-->>RA: Success response
+
+    RA->>CLD: Verify: describe_instance(i-0abc123)
+    CLD-->>RA: Instance type = t3.large ✓
+
+    RA->>DB: Store after-state
+    RA->>DB: Update recommendation status = executed
+    RA->>AL: Log execution record (steps, before/after, outcome)
+    RA->>NR: Send completion notification
+
+    Note over AL: Immutable record:<br/>- Recommendation data<br/>- Human approval<br/>- Execution steps<br/>- Verification result

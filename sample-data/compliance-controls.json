@@ -1,0 +1,92 @@
+[
+  {
+    "framework": "SOC2_TYPE2",
+    "control_id": "CC6.1",
+    "title": "Logical Access Controls",
+    "description": "The entity implements logical access security software, infrastructure, and architectures over protected information assets.",
+    "status": "pass",
+    "evidence_type": "automated",
+    "evidence_collected_at": "2026-06-12T03:00:00Z",
+    "confidence": "high",
+    "ai_narrative": "CC6.1 — Logical Access Controls: Evidence collected from IAM policies in all 8 connected accounts. Production access restricted to 12 named users with documented business justification. MFA enforcement verified as required for all users with console access. Access reviews completed on 2026-05-15 and documented. IAM password policy enforces minimum length, complexity, and rotation. Status: PASS."
+  },
+  {
+    "framework": "SOC2_TYPE2",
+    "control_id": "CC6.2",
+    "title": "Prior to issuing system credentials and granting access, the entity registers and authorizes new users",
+    "description": "New user access is requested, reviewed, and approved before credentials are issued.",
+    "status": "pass",
+    "evidence_type": "hybrid",
+    "evidence_collected_at": "2026-06-12T03:00:00Z",
+    "confidence": "medium",
+    "ai_narrative": "CC6.2 — User Registration and Authorization: CloudPilot OS verified that all IAM users were created within the last 365 days or have documented justification for older accounts. 4 accounts over 365 days old identified — all confirmed as service accounts with documented purposes. Note: The formal user access request process requires manual evidence from HR system (ticket evidence provided separately). Automated evidence covers cloud-side access control. Status: PASS (hybrid evidence)."
+  },
+  {
+    "framework": "SOC2_TYPE2",
+    "control_id": "CC7.2",
+    "title": "The entity monitors system components for anomalies that indicate malicious acts",
+    "description": "System components are monitored and evaluated for deviations that indicate malicious activity.",
+    "status": "fail",
+    "evidence_type": "automated",
+    "evidence_collected_at": "2026-06-12T03:00:00Z",
+    "confidence": "high",
+    "ai_narrative": "CC7.2 — Anomaly Monitoring: CloudTrail is enabled and configured in accounts acct-001, acct-002, acct-004, acct-005, acct-007, acct-008. However, CloudTrail is not enabled in acct-003 (data-platform account) and acct-006 (dev account). For CC7.2 compliance, CloudTrail must be enabled and monitored in all in-scope accounts. Gap: 2 accounts missing CloudTrail. Status: FAIL. Remediation: Enable CloudTrail in acct-003 and acct-006. Estimated effort: 1 hour.",
+    "remediation_recommendation": "Enable CloudTrail in acct-003 and acct-006 immediately. This is a medium-risk gap with audit implications."
+  },
+  {
+    "framework": "SOC2_TYPE2",
+    "control_id": "CC8.1",
+    "title": "The entity authorizes, designs, develops or acquires, configures, documents, tests, approves, and implements changes to infrastructure, data, software, and procedures",
+    "description": "Changes to system components are authorized and managed through a defined change management process.",
+    "status": "pass",
+    "evidence_type": "automated",
+    "evidence_collected_at": "2026-06-12T03:00:00Z",
+    "confidence": "medium",
+    "ai_narrative": "CC8.1 — Change Management: CloudPilot OS remediation audit log provides evidence of change management for all cloud infrastructure changes executed through the platform. 23 infrastructure changes were executed in the last 30 days, all with documented approval records, change descriptions, and post-execution verification. Approval rate: 100%. Rollback rate: 4.3% (1 rollback, resolved successfully). Note: Changes made outside of CloudPilot OS (manual console changes) are captured in CloudTrail but require separate evidence collection. Status: PASS for platform-managed changes."
+  },
+  {
+    "framework": "HIPAA",
+    "control_id": "164.312(a)(1)",
+    "title": "Access Control",
+    "description": "Implement technical policies and procedures for electronic information systems that maintain electronic protected health information (ePHI) to allow access only to those persons or software programs that have been granted access rights.",
+    "status": "pass",
+    "evidence_type": "automated",
+    "evidence_collected_at": "2026-06-12T03:00:00Z",
+    "confidence": "high",
+    "ai_narrative": "HIPAA 164.312(a)(1) — Access Control: All HIPAA-tagged accounts (acct-001, acct-003) have IAM policies restricting access to ePHI storage resources. S3 buckets tagged with 'data-classification: phi' have bucket policies allowing access only to 3 named IAM roles with documented ePHI-handling justification. No wildcard access to PHI resources detected. MFA required for all IAM users with access to ePHI. Status: PASS."
+  },
+  {
+    "framework": "HIPAA",
+    "control_id": "164.312(e)(1)",
+    "title": "Transmission Security",
+    "description": "Implement technical security measures to guard against unauthorized access to ePHI transmitted over an electronic communications network.",
+    "status": "pass",
+    "evidence_type": "automated",
+    "evidence_collected_at": "2026-06-12T03:00:00Z",
+    "confidence": "high",
+    "ai_narrative": "HIPAA 164.312(e)(1) — Transmission Security: All load balancers in HIPAA-tagged accounts are configured to enforce HTTPS only (no HTTP listeners). API Gateway endpoints are configured with TLS 1.2+ minimum. S3 buckets tagged as PHI-containing have 'require secure transport' bucket policies. No unencrypted transmission paths detected for ePHI resources. Status: PASS."
+  },
+  {
+    "framework": "HIPAA",
+    "control_id": "164.312(b)",
+    "title": "Audit Controls",
+    "description": "Implement hardware, software, and/or procedural mechanisms that record and examine activity in information systems that contain or use ePHI.",
+    "status": "partial",
+    "evidence_type": "hybrid",
+    "evidence_collected_at": "2026-06-12T03:00:00Z",
+    "confidence": "medium",
+    "ai_narrative": "HIPAA 164.312(b) — Audit Controls: CloudTrail is enabled in acct-001 (primary PHI-containing account) with log file validation enabled. S3 access logging is enabled for all PHI-tagged storage buckets. However: (1) CloudTrail log file validation was not enabled in acct-001 until June 1, 2026 — there is a gap for the period before that date. (2) CloudTrail in acct-003 is not enabled (see CC7.2 gap). Recommend enabling CloudTrail in acct-003 immediately and documenting the log validation gap period. Status: PARTIAL — gaps require remediation before audit.",
+    "remediation_recommendation": "Enable CloudTrail in acct-003 and document the log validation gap period with a compensating control narrative."
+  },
+  {
+    "framework": "ISO27001",
+    "control_id": "A.9.4.1",
+    "title": "Information access restriction",
+    "description": "Access to information and application system functions shall be restricted in accordance with the access control policy.",
+    "status": "pass",
+    "evidence_type": "automated",
+    "evidence_collected_at": "2026-06-12T03:00:00Z",
+    "confidence": "high",
+    "ai_narrative": "A.9.4.1 — Information Access Restriction: IAM policies across all 8 connected accounts follow least-privilege principles. No wildcard resource permissions detected in production accounts (1 high-severity finding in acct-001 dev-admin-role is noted and under active remediation). S3 bucket policies restrict access to named roles and users with documented justification. All database instances have IAM authentication enabled. Status: PASS (with noted exception in active remediation)."
+  }
+]

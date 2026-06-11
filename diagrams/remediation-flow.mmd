@@ -1,0 +1,52 @@
+flowchart TD
+    A([Finding or Recommendation Detected]) --> B[Remediation Agent: Draft Plan]
+    B --> C{Risk Tier Assessment}
+
+    C -->|Low Risk| D[Single Approver Required]
+    C -->|Medium Risk| E[Single Approver + Change Window]
+    C -->|High Risk| F[Two Approvers Required]
+    C -->|Critical Risk| G[Two Approvers + CISO + Change Board]
+
+    D --> H[Submit to Approval Queue]
+    E --> H
+    F --> H
+    G --> H
+
+    H --> I{Approver Decision}
+
+    I -->|Approve| J[Schedule for Change Window]
+    I -->|Reject| K([Workflow Closed — Reason Logged])
+    I -->|Modify| L[Edit Steps] --> H
+    I -->|No Response in SLA| M[Escalate to CloudOps Lead] --> I
+
+    J --> N[Pre-Execution: Capture Before-State]
+    N --> O[Execute Step 1]
+    O --> P{Step Successful?}
+
+    P -->|Yes| Q[Execute Next Step]
+    P -->|No| R[Automatic Rollback Triggered]
+
+    Q --> S{All Steps Complete?}
+    S -->|No| O
+    S -->|Yes| T[Post-Execution Verification]
+
+    T --> U{Finding Resolved?}
+    U -->|Yes| V[Mark Remediation Complete]
+    U -->|No| W{Side Effects Detected?}
+
+    W -->|Yes| R
+    W -->|No| X[Flag for Manual Review]
+
+    R --> Y[Execute Rollback Plan]
+    Y --> Z{Rollback Successful?}
+    Z -->|Yes| AA[Create Incident — Notify Team]
+    Z -->|No| AB[CRITICAL: Manual Intervention Required]
+
+    V --> AC[Write Audit Log Entry]
+    AC --> AD[Update Finding Status]
+    AD --> AE([Remediation Complete])
+
+    style R fill:#ff6b6b,color:#fff
+    style AB fill:#c0392b,color:#fff
+    style AE fill:#27ae60,color:#fff
+    style K fill:#95a5a6,color:#fff
