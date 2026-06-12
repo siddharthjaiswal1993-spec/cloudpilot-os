@@ -159,7 +159,7 @@ cloudpilot-os/
 │   ├── 13-security-compliance-privacy.md  ← Security posture
 │   ├── 14-roadmap.md                  ← MVP → V1 → V2 → Future
 │   ├── 15-gtm-strategy.md             ← Go-to-market
-│   ├── 16-demo-script.md              ← 10-minute interview demo
+│   ├── 16-demo-script.md              ← 10-minute product demo walkthrough
 │   └── 17-product-narrative.md        ← Product thesis and design decisions
 ├── prototype/                         ← React + Vite prototype
 │   ├── package.json
