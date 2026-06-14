@@ -1,7 +1,7 @@
 # Demo Script — CloudPilot OS
 
-**Format:** 10-minute interview demo (product walkthrough + strategy narrative)  
-**Audience:** Hiring manager, product leader, or engineering leader  
+**Format:** 10-minute product demo (platform walkthrough + strategy narrative)  
+**Audience:** Product leader, engineering leader, or technical stakeholder  
 **Tone:** Confident, thoughtful, enterprise-grade  
 **Setup:** Prototype running at localhost:5173  
 

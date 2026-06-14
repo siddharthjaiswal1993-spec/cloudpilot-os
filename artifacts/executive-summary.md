@@ -70,4 +70,4 @@ The convergence of LLM capability maturity, agent infrastructure tooling, cloud 
 ---
 
 *CloudPilot OS — AI-native CloudOps Command Center*  
-*Portfolio Project — Siddharth Jaiswal, Staff PM*
+*Independent product exploration — Siddharth Jaiswal*

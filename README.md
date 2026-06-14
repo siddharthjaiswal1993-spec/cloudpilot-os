@@ -1,6 +1,8 @@
 # CloudPilot OS
 
-> **AI-native CloudOps command center for enterprises and managed service providers.**
+> **CloudOps intelligence and automation — cost anomaly detection, security triage, and compliance workflows in a single governed platform.**
+
+**Status:** Concept + Prototype · Synthetic examples and mock data throughout
 
 ---
 
@@ -16,7 +18,7 @@ Modern cloud environments have outpaced the tools built to manage them. After de
 
 CloudPilot OS is a response to this category gap: a unified AI-native operations layer that replaces fragmented dashboards with an intelligent system of agents that reason, recommend, and act.
 
-This repository is a staff-level PM portfolio artifact demonstrating deep product strategy, AI-native system design, enterprise SaaS platform thinking, and practical prototyping capability.
+This repository documents the full product strategy, system design, and working prototype for this platform.
 
 ---
 
@@ -159,8 +161,8 @@ cloudpilot-os/
 │   ├── 13-security-compliance-privacy.md  ← Security posture
 │   ├── 14-roadmap.md                  ← MVP → V1 → V2 → Future
 │   ├── 15-gtm-strategy.md             ← Go-to-market
-│   ├── 16-demo-script.md              ← 10-minute interview demo
-│   └── 17-interview-narrative.md      ← Portfolio narrative
+│   ├── 16-demo-script.md              ← 10-minute product demo walkthrough
+│   └── 17-product-narrative.md        ← Product thesis and design decisions
 ├── prototype/                         ← React + Vite prototype
 │   ├── package.json
 │   ├── index.html
@@ -207,8 +209,8 @@ cloudpilot-os/
     ├── one-page-strategy.md
     ├── product-one-pager.md
     ├── executive-summary.md
-    ├── hiring-manager-brief.md
-    └── portfolio-case-study.md
+    ├── PRODUCT_POSITIONING.md
+    └── PRODUCT_CASE_STUDY.md
 ```
 
 ---
@@ -235,7 +237,7 @@ Open `http://localhost:5173` in your browser.
 6. **Reports** — Generate an AI-powered executive report
 7. **Customers** — Show the MSP portfolio view
 
-See `docs/16-demo-script.md` for the full narrated interview script.
+See `docs/16-demo-script.md` for the full narrated demo walkthrough.
 
 ---
 
@@ -289,5 +291,30 @@ Cloud operations is a high-stakes, high-friction domain where AI can create genu
 
 ---
 
-*Portfolio project by Siddharth Jaiswal — Staff PM | AI-Native Product Strategy*
-*GitHub: [@siddharthj](https://github.com/siddharthj)*
+---
+
+## Build / Maintain / Improve / Kill
+
+**Build** — Real AWS/Azure/GCP API integrations and a live remediation execution layer with full audit trail. The autonomy ladder only has value when it is backed by actual execution capability.
+
+**Maintain** — The autonomy ladder (recommendation-only → supervised → autonomous) and the approval gates at each level. This is the safety architecture. Do not flatten it.
+
+**Improve** — Cross-domain correlation: a cost spike that correlates with a new security finding is a different problem than either signal alone. The current agents operate independently; a production system surfaces the correlation.
+
+**Kill** — Cloud-agnostic features that do not map to real Day-2 operational workflows. Generic multi-cloud management is a crowded, low-margin space. The product's defensible position is in the agentic execution layer, not in the dashboard.
+
+---
+
+## What I Built
+
+| Artifact | Description |
+|---|---|
+| 17 product docs | Market context, PRD, agent strategy, system architecture, trust model, evaluation framework, GTM |
+| Working prototype | React + Vite, 9 pages, realistic mock data |
+| Architecture diagrams | 5 Mermaid diagrams covering architecture, agent workflow, remediation, data flow, approval model |
+| Sample datasets | 8 JSON datasets covering cloud accounts, resources, findings, compliance, remediation, customers |
+| Standard portfolio docs | PORTFOLIO_AUDIT, PRODUCT_THESIS, WHAT_I_BUILT, OUTCOME_MODEL, AI_PRODUCT_JUDGMENT |
+
+---
+
+*Independent product exploration. Uses synthetic examples, mock data, and public category-level assumptions.*
