@@ -1,6 +1,8 @@
 # CloudPilot OS
 
-> **AI-native CloudOps command center for enterprises and managed service providers.**
+> **CloudOps intelligence and automation — cost anomaly detection, security triage, and compliance workflows in a single governed platform.**
+
+**Status:** Concept + Prototype · Synthetic examples and mock data throughout
 
 ---
 
@@ -288,6 +290,18 @@ The product is designed so that teams can start at Level 1 (recommendations only
 Cloud operations is a high-stakes, high-friction domain where AI can create genuine enterprise value — not by replacing engineers, but by removing the toil that prevents them from doing their best work. This project demonstrates that a strong AI-native PM understands not just how to wire AI into a product, but how to think about trust, governance, explainability, autonomy, and incremental adoption — the hard parts that separate real enterprise AI products from demos.
 
 ---
+
+---
+
+## Build / Maintain / Improve / Kill
+
+**Build** — Real AWS/Azure/GCP API integrations and a live remediation execution layer with full audit trail. The autonomy ladder only has value when it is backed by actual execution capability.
+
+**Maintain** — The autonomy ladder (recommendation-only → supervised → autonomous) and the approval gates at each level. This is the safety architecture. Do not flatten it.
+
+**Improve** — Cross-domain correlation: a cost spike that correlates with a new security finding is a different problem than either signal alone. The current agents operate independently; a production system surfaces the correlation.
+
+**Kill** — Cloud-agnostic features that do not map to real Day-2 operational workflows. Generic multi-cloud management is a crowded, low-margin space. The product's defensible position is in the agentic execution layer, not in the dashboard.
 
 ---
 
