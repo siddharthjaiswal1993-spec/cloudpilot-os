@@ -285,14 +285,6 @@ The product is designed so that teams can start at Level 1 (recommendations only
 
 ---
 
-## Why This Project Matters
-
-Cloud operations is a high-stakes, high-friction domain where AI can create genuine enterprise value — not by replacing engineers, but by removing the toil that prevents them from doing their best work. This project demonstrates that a strong AI-native PM understands not just how to wire AI into a product, but how to think about trust, governance, explainability, autonomy, and incremental adoption — the hard parts that separate real enterprise AI products from demos.
-
----
-
----
-
 ## Build / Maintain / Improve / Kill
 
 **Build** — Real AWS/Azure/GCP API integrations and a live remediation execution layer with full audit trail. The autonomy ladder only has value when it is backed by actual execution capability.
